@@ -1,0 +1,32 @@
+
+from rest_framework import serializers
+from django.contrib.auth.models import User
+from Two.models import Profile, Word
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField()
+
+    class Meta:
+        model = Profile
+
+        fields = ('id', 'nickname', 'user')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    profile = serializers.PrimaryKeyRelatedField()
+
+    class Meta:
+        model = User
+
+        fields = ('id', 'username', 'profile')
+
+
+class WordSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(many=True)
+
+    class Meta:
+        model = Word
+
+        fields = ('id', 'value', 'user')
+
